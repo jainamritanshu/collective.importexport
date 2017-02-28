@@ -261,6 +261,7 @@ def export_file(result, header_mapping, request=None):
                 serializer = ISerializer(field)
                 value = serializer(value, {})
                 break
+            value = value and value.encode('utf-8')
             items.append(value)
 
 #        log.debug(items)
@@ -312,7 +313,7 @@ def fields_list(context):
     # path is special and allows us to import to dirs and export resulting path
 
     allowed_types = [IText, IBytes, IInt, IFloat, IDecimal, IChoice, IDatetime,
-                     ITime, IDate]
+                     ITime, IDate, IBool]
 
     for fti in get_allowed_types(context):
         portal_type = fti.getId()
